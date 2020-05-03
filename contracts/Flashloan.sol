@@ -1,8 +1,8 @@
 pragma solidity ^0.6.6;
 
 import "./aave/FlashLoanReceiverBase.sol";
-import "./aave/ILendingPoolAddressesProvider.sol";
-import "./aave/ILendingPool.sol";
+import "../interfaces/ILendingPoolAddressesProvider.sol";
+import "../interfaces/ILendingPool.sol";
 
 contract Flashloan is FlashLoanReceiverBase {
 
