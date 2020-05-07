@@ -1,4 +1,9 @@
-on: ["push", "pull_request"]
+on:
+  push:
+  pull_request:
+  schedule:
+    # run this workflow every Monday at 1PM UTC
+    - cron: "* 13 * * 1"
 
 name: main workflow
 
