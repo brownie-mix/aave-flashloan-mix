@@ -1,0 +1,39 @@
+on: ["push", "pull_request"]
+
+name: main workflow
+
+env:
+  ETHERSCAN_TOKEN: 9MKURTHE8FNA9NRUUJBHMUEVY6IQ5K1EGY
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  WEB3_INFURA_PROJECT_ID: 44c6300c5e5b4b2da5fc42b06bf18a8e
+
+jobs:
+
+  tests:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v1
+
+    - name: Cache Solidity Installations
+      uses: actions/cache@v1
+      with:
+        path: ~/.solcx
+        key: ${{ runner.os }}-solcx-cache
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v1
+
+    - name: Install Ganache
+      run: npm install -g ganache-cli@6.8.2
+
+    - name: Setup Python 3.8
+      uses: actions/setup-python@v1
+      with:
+        python-version: 3.8
+
+    - name: Install Requirements
+      run: pip install -r requirements.txt
+
+    - name: Run Tests
+      run: brownie test
