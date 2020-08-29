@@ -10,7 +10,7 @@ This mix is configured for use with [Ganache](https://github.com/trufflesuite/ga
 
 ## Installation and Setup
 
-1. [Install Brownie](https://eth-brownie.readthedocs.io/en/stable/install.html), if you haven't already.
+1. [Install Brownie](https://eth-brownie.readthedocs.io/en/stable/install.html) & [Ganache-CLI](https://github.com/trufflesuite/ganache-cli), if you haven't already.
 
 2. Sign up for [Infura](https://infura.io/) and generate an API key. Store it in the `WEB3_INFURA_PROJECT_ID` environment variable.
 
