@@ -12,7 +12,7 @@ def setup(fn_isolation):
 
 
 @pytest.fixture(scope="module")
-def aave_lending_pool(Contract):
+def aave_lending_pool_v1(Contract):
     """
     Yield a `Contract` object for the Aave lending pool address provider.
     """
@@ -20,16 +20,38 @@ def aave_lending_pool(Contract):
 
 
 @pytest.fixture(scope="module")
-def flashloan(Flashloan, aave_lending_pool, accounts):
+def flashloan_v1(FlashloanV1, aave_lending_pool_v1, accounts):
     """
     Deploy a `Flashloan` contract from `web3.eth.accounts[0]` and yields the
     generated object.
     """
-    yield Flashloan.deploy(aave_lending_pool, {"from": accounts[0]})
+    yield FlashloanV1.deploy(aave_lending_pool_v1, {"from": accounts[0]})
+
+
+@pytest.fixture(scope="module")
+def aave_lending_pool_v2(Contract):
+    """
+    Yield a `Contract` object for the Aave lending pool address provider.
+    """
+    yield Contract("0xB53C1a33016B2DC2fF3653530bfF1848a515c8c5")
+
+
+@pytest.fixture(scope="module")
+def flashloan_v2(FlashloanV2, aave_lending_pool_v2, accounts):
+    """
+    Deploy a `Flashloan` contract from `web3.eth.accounts[0]` and yields the
+    generated object.
+    """
+    yield FlashloanV2.deploy(aave_lending_pool_v2, {"from": accounts[0]})
 
 
 # Mainnet reserve token fixtures - addresses are taken from
-# https://docs.aave.com/developers/developing-on-aave/deployed-contract-instances#reserves-assets
+# https://docs.aave.com/developers/v/1.0/deployed-contracts/deployed-contract-instances#reserves-assets
+
+
+@pytest.fixture(scope="module")
+def WETH(Contract):
+    yield Contract("0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2")
 
 
 @pytest.fixture(scope="module")
