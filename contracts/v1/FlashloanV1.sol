@@ -1,12 +1,12 @@
 pragma solidity ^0.6.6;
 
-import "./aave/FlashLoanReceiverBase.sol";
-import "../interfaces/ILendingPoolAddressesProvider.sol";
-import "../interfaces/ILendingPool.sol";
+import "./aave/FlashLoanReceiverBaseV1.sol";
+import "../../interfaces/v1/ILendingPoolAddressesProviderV1.sol";
+import "../../interfaces/v1/ILendingPoolV1.sol";
 
-contract Flashloan is FlashLoanReceiverBase {
+contract FlashloanV1 is FlashLoanReceiverBaseV1 {
 
-    constructor(address _addressProvider) FlashLoanReceiverBase(_addressProvider) public {}
+    constructor(address _addressProvider) FlashLoanReceiverBaseV1(_addressProvider) public {}
 
     /**
         This function is called after your contract has received the flash loaned amount
@@ -38,7 +38,7 @@ contract Flashloan is FlashLoanReceiverBase {
         bytes memory data = "";
         uint amount = 1 ether;
 
-        ILendingPool lendingPool = ILendingPool(addressesProvider.getLendingPool());
+        ILendingPoolV1 lendingPool = ILendingPoolV1(addressesProvider.getLendingPool());
         lendingPool.flashLoan(address(this), _asset, amount, data);
     }
 }

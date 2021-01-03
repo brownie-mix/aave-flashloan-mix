@@ -5,18 +5,18 @@
 # The initial transfer should be removed prior to testing your final implementation.
 
 
-def test_eth_flashloan(accounts, ETH, flashloan):
+def test_eth_flashloan(accounts, ETH, flashloan_v1):
     """
     Test a flashloan that borrows Ethereum.
     """
 
     # transfer ether to the flashloan contract
-    accounts[0].transfer(flashloan, "2 ether")
+    accounts[0].transfer(flashloan_v1, "2 ether")
 
-    flashloan.flashloan(ETH, {"from": accounts[0]})
+    flashloan_v1.flashloan(ETH, {"from": accounts[0]})
 
 
-def test_dai_flashloan(Contract, accounts, DAI, flashloan):
+def test_dai_flashloan(Contract, accounts, DAI, flashloan_v1):
     """
     Test a flashloan that borrows DAI.
 
@@ -31,6 +31,6 @@ def test_dai_flashloan(Contract, accounts, DAI, flashloan):
 
     # transfer DAI to the flashloan contract
     balance = DAI.balanceOf(accounts[0])
-    DAI.transfer(flashloan, balance, {"from": accounts[0]})
+    DAI.transfer(flashloan_v1, balance, {"from": accounts[0]})
 
-    flashloan.flashloan(DAI, {"from": accounts[0]})
+    flashloan_v1.flashloan(DAI, {"from": accounts[0]})
