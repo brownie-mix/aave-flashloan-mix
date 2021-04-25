@@ -14,7 +14,7 @@ This mix is configured for use with [Ganache](https://github.com/trufflesuite/ga
 
 1. [Install Brownie](https://eth-brownie.readthedocs.io/en/stable/install.html) & [Ganache-CLI](https://github.com/trufflesuite/ganache-cli), if you haven't already.
 
-2. Sign up for [Infura](https://infura.io/) and generate an API key. Store it in the `WEB3_INFURA_PROJECT_ID` environment variable.
+2. Sign up for [Infura](https://infura.io/) and generate an API key. Store it in the `WEB3_INFURA_PROJECT_ID` environment variable. You can [learn more about environment variables here](https://www.twilio.com/blog/2017/01/how-to-set-environment-variables.html). If you're unfamiliar with environment variables you can just add all these commands to your `.env` file and run `source .env` when you're done. 
 
 ```bash
 export WEB3_INFURA_PROJECT_ID=YourProjectID
@@ -32,7 +32,33 @@ export ETHERSCAN_TOKEN=YourApiToken
 brownie bake aave-flashloan
 ```
 
-## Basic Use
+5. Add your `PRIVATE_KEY` environment variable, with [a private key from you wallet.](https://metamask.zendesk.com/hc/en-us/articles/360015289632-How-to-Export-an-Account-Private-Key). *Note: If using metamask, you'll have to add a `0x` to the start of your private key) 
+
+## Quickstart (Kovan)
+
+We can see our flash loans on Etherscan via the Kovan testnet. If you're rather *run everything locally, check out the [Basic Console Use](#basic-console-use).
+
+1. Get some WETH. We need this to pay the preimum that flash loans cost. 
+
+```bash
+$ brownie run scripts/get_weth.py --network kovan
+```
+
+2. Deploy the flash loan contract. This will also fund the contract with WETH to pay the flash loan fee if it's not funded. 
+
+```bash
+$ brownie run scripts/deployment_v2.py --network kovan
+```
+
+3. Execute the flash loan 
+
+```bash
+$ brownie run scripts/run_flash_loan_v2.py --network kovan
+```
+
+This will print out an etherscan URL to see the flash loan transaction. [Like this one.](https://kovan.etherscan.io/tx/0x161d423dd1a56e7c440dabed95bea314b63668fc462567348ba4dd188e894de3)
+
+## Basic Console Use
 
 To perform a simple flash loan in a development environment:
 
@@ -85,8 +111,8 @@ Transaction sent: 0x335530e6d2b7588ee4727b35ae1ed8634a264aca04b325640101ec1c2b89
 
 [`contracts/v2/FlashloanV2.sol`](contracts/v2/FlashloanV2.sol) is where you implement your own logic for flash loans. In particular:
 
-* The size of the loan is set in line 39 in `flashloan`.
-* Custom flash loan logic is added after line 23 in `executeOperation`.
+* The size of the loan is set in line 89 in `flashloan`.
+* Custom flash loan logic is added after line 31 in `executeOperation`.
 
 See the Aave documentation on [Performing a Flash Loan](https://docs.aave.com/developers/guides/flash-loans) for more detailed information.
 
@@ -253,15 +279,12 @@ See the [Brownie documentation](https://eth-brownie.readthedocs.io/en/stable/cor
 
 When you are finished testing and ready to deploy to the mainnet:
 
-1. [Import a keystore](https://eth-brownie.readthedocs.io/en/stable/account-management.html#importing-from-a-private-key) into Brownie for the account you wish to deploy from.
-2. Edit [`scripts/deployment.py`](scripts/deployment.py) and add your keystore ID according to the comments.
-3. Run the deployment script on the mainnet using the following command:
+1. [Import a keystore](https://eth-brownie.readthedocs.io/en/stable/account-management.html#importing-from-a-private-key) into Brownie for the account you wish to deploy from. Add this as a `PRIVATE_KEY` environment variable.
+2. Run the deployment script on the mainnet using the following command:
 
 ```bash
-$ brownie run deployment --network mainnet
+$ brownie run scripts/deployment_v2.py --network mainnet
 ```
-
-You will be prompted to enter your keystore password, and then the contract will be deployed.
 
 ## Known issues
 
