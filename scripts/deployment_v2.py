@@ -8,7 +8,12 @@ def main():
     Deploy a `FlashloanV2` contract from `accounts[0]`.
     """
 
-    acct = accounts.add(config["wallets"]["from_key"])  # add your keystore ID as an argument to this call
+    acct = accounts.add(
+        config["wallets"]["from_key"]
+    )  # add your keystore ID as an argument to this call
 
-    flashloan = FlashloanV2.deploy(config['networks'][network.show_active()]['aave_lending_pool_v2'], {"from": acct})
+    flashloan = FlashloanV2.deploy(
+        config["networks"][network.show_active()]["aave_lending_pool_v2"],
+        {"from": acct},
+    )
     return flashloan
