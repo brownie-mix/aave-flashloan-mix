@@ -9,6 +9,9 @@ autofetch_sources: True
 dependencies:
   - OpenZeppelin/openzeppelin-contracts@3.0.0
 
+# Automatically exports the environment variables from .env
+dotenv: .env
+
 # path remapping to support OpenZepplin imports with NPM-style path
 compiler:
   solc:
