@@ -6,7 +6,7 @@ ETHERSCAN_TX_URL = "https://kovan.etherscan.io/tx/{}"
 
 def main():
     """
-    Executes the funcitonality of the flash loan.
+    Executes the functionality of the flash loan.
     """
     acct = accounts.add(config["wallets"]["from_key"])
     print("Getting Flashloan contract...")
