@@ -85,7 +85,6 @@ contract FlashloanV2 is FlashLoanReceiverBaseV2, Withdrawable {
      *  Flash loan 1000000000000000000 wei (1 ether) worth of `_asset`
      */
     function flashloan(address _asset) public onlyOwner {
-        bytes memory data = "";
         uint amount = 1 ether;
 
         address[] memory assets = new address[](1);
